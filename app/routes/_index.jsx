@@ -21,15 +21,16 @@ export const action = async ({ request }) => {
     const id = Number(formData.get("id")); // Pega o ID da tarefa a ser deletada
     deleteTodo(id); // Apaga a tarefa
   } else {
-    const text = formData.get("text");
-    if(text) addTodo(text);
+    const text = formData.get("text"); // Pega o texto da nova tarefa
+    if(text) addTodo(text); // Adiciona à lista
   }
 
-  return null;
+  return null; // O remix recarrega automaticamente a rota
 };
 
+// Componente principal da página
 export default function Index() {
-  const todos = useLoaderData();
+  const todos = useLoaderData(); // Pega as tarefas do loader
 
   return (
     <main style={{ padding: "2rem", fontFamily: "sans-serif", maxWidth: "600px", margin: "auto", backgroundColor: "white", minHeight: "100vh", color: "#333"}}>
@@ -41,7 +42,7 @@ export default function Index() {
         <button type="submit" style={{ marginLeft: "1rem", textAlign: "center", padding: "0.5rem 1rem", fontSize: "1rem", background: "#4CAF50", color: "white", border: "none", borderRadius: "4px" }}>Adicionar</button>
       </Form>
 
-      {/* Lista das Tarefas */}
+      {/* Lista das Tarefas Existentes*/}
       <ul style={{ marginTop: "1rem", listStyle: "none", padding: 0}}>
         {todos.map((todo) => (
           <li key={todo.id} style={{background: "#f4f4f4", padding: "0.75rem 1rem", marginBottom: "0.5rem", borderRadius: "4px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
