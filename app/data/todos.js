@@ -22,9 +22,3 @@ export function addTodo(text) {
 export function deleteTodo(id) {
     todos = todos.filter((todo) => todo.id !== id); // Remove do array
 }
-
-module.exports = {
-    getTodos,
-    addTodo, 
-    deleteTodo,
-}
