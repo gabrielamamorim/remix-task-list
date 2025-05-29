@@ -1,17 +1,25 @@
+// Importa componentes do Remix
+// - Form: componente inteligente que lida com rotas
+// - useLoaderData: "gancho" que acessa os dados carregados pelo loader
 import { Form, useLoaderData } from "@remix-run/react";
+
+// Importa as funções auxiliares para gerenciar as tarefas
 import { getTodos, addTodo, deleteTodo} from "~/data/todos";
 
+// Função loader: roda no servidor antes de renderizar a página
+// Aqui, tá buscando a lista de tarefas salvas
 export const loader = () => {
   return getTodos();
 };
 
+// Função action: trata requisições POST feitas por formulários
 export const action = async ({ request }) => {
-  const formData = await request.formData();
-  const _method = formData.get("_method");
+  const formData = await request.formData(); // Lê os dados enviados no formulário
+  const _method = formData.get("_method"); // Verifica se é uma ação de deletar
 
   if (_method === "delete") {
-    const id = Number(formData.get("id"));
-    deleteTodo(id);
+    const id = Number(formData.get("id")); // Pega o ID da tarefa a ser deletada
+    deleteTodo(id); // Apaga a tarefa
   } else {
     const text = formData.get("text");
     if(text) addTodo(text);
